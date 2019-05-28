@@ -12,7 +12,7 @@
 
 服务器默认在us，为了更快，选择新加坡节点“ap”
 
-<div align=center><img width="225" height="225" src="https://github.com/bjwu/Ecommerce-recommender/raw/master/images/ngrox_tcp.png" /></div>
+![这里有图片](../images/%20ngrox_tcp.png)
 
 
 forwarding中，`12569`为给予的端口号，得保持该process一直运行，不然下一次端口号就会变，这就是开源的代价吧。
@@ -138,4 +138,13 @@ ubuntu18与之前的版本在配置网卡的时候不甚相同，ubuntu18的配�
   ```
 
 * Reference: https://segmentfault.com/a/1190000017370688
+
+## 3. Redis, Hbase & Mongodb比较
+
+> 当SQL满足不了你的需求或者SQL 已经不是必须的或者最佳的选择时，就是你考虑这类NoSQL 的时候了。
+当你的内存大于你的数据时，schema也不是太确定时，mongodb在这里静静地等待MySQL转业户为了尝鲜过来看热闹的，不改变设计模式，爽在前面痛在后面;
+当你唯一追求的就是速度，又对memcached的过于简单心存芥蒂，刚好内存也比数据多时，redis俏生生站在那里;大，好大，太大了，我说的是数据，我们128GB内存双路CPU25TB存储只够一星期的时候，估计就没有选择综合症了，HBase成了唯一或者唯二选择了。
+所以呢，不严谨地讲，Redis定位在"快"，HBase定位于"大",mongodb定位在"灵活"。
+NoSQL的优点正好就是SQL的软肋，而其弱点正好也就是SQL的杀手锏
+最大区别在于，在一般使用情况下，mongodb可以当作简单场景下的但是性能高数倍的MySQL, Redis基本只会用来做缓存，HBase用来做离线计算
 
