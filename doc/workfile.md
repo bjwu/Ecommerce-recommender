@@ -153,3 +153,13 @@ LRANGE gives a subset of the list. It takes the index of the first element you w
     LRANGE friends 1 2 => 1) "Alice", 2) "Bob" 
 ```
 
+# 2019.5.29
+
+1. 杀不掉redis进程 
+
+不知道为什么我kill -9 命令无法杀掉 redis 进程 ，杀掉就自动重启 
+redis-cli shutdown 也不行 
+redis-cli -h 127.0.0.1 -p 6379 shutdown 都不行 
+最后这个命令能杀掉 
+/etc/init.d/redis-server stop
+

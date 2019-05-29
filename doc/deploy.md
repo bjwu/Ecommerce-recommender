@@ -32,6 +32,7 @@ $ bin/start-cluster.sh
 ## redis
 
 ```bash
+# 启动redis
 $ /usr/local/redis/bin/redis-server /usr/local/redis/etc/redis.conf
 ```
 

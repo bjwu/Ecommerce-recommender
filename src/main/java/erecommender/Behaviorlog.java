@@ -5,23 +5,25 @@ public class Behaviorlog {
     private long timeStamp;
     private String btag;
     private int cate;
-    private int brand;
+    private int itemId;
 
     private Behaviorlog() {
 
     }
 
-    public Behaviorlog(int userId, long timeStamp, String btag, int cate, int brand){
+    public Behaviorlog(int userId, long timeStamp, String btag, int cate, int itemId){
         this.userId = userId;
         this.timeStamp = timeStamp;
         this.btag = btag;
         this.cate = cate;
-        this.brand = brand;
+        this.itemId = itemId;
     }
 
     public int getUserId() {
         return userId;
     }
+
+    public String getStrUserId() { return Integer.toString(userId); }
 
     public String getbtag(){
         return btag;
@@ -31,7 +33,9 @@ public class Behaviorlog {
         return cate;
     }
 
-    public int getbrand() {return brand; }
+    public int getItemId() {return itemId; }
+
+    public String getStrItemId() { return Integer.toString(itemId); }
 
     public long getTimeStamp(){
         return timeStamp;
@@ -47,8 +51,8 @@ public class Behaviorlog {
 
     public void setcate(int cate){ this.cate = cate; }
 
-    public void setbrand(int brand) {
-        this.brand = brand;
+    public void setItemId(int itemId) {
+        this.itemId = itemId;
     }
 
     public void setTimeStamp(long timeStamp) {
@@ -56,7 +60,7 @@ public class Behaviorlog {
     }
 
     public String toText(){
-        return userId+","+timeStamp+","+btag+","+cate+","+brand+"\n";
+        return userId+","+timeStamp+","+btag+","+cate+","+itemId+"\n";
     }
 
     @Override
@@ -66,7 +70,7 @@ public class Behaviorlog {
         sb.append(timeStamp).append(",");
         sb.append(btag).append(",");
         sb.append(cate).append(",");
-        sb.append(brand);
+        sb.append(itemId);
         return sb.toString();
     }
 
@@ -84,7 +88,7 @@ public class Behaviorlog {
             mrate.timeStamp= Long.parseLong(tokens[1]);
             mrate.btag = tokens[2];
             mrate.cate = Integer.parseInt(tokens[3]);
-            mrate.brand = Integer.parseInt(tokens[4]);
+            mrate.itemId = Integer.parseInt(tokens[4]);
 //
         } catch (NumberFormatException nfe) {
             throw new RuntimeException("Invalid record: " + line, nfe);
