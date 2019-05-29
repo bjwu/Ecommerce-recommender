@@ -118,25 +118,6 @@ ubuntu18与之前的版本在配置网卡的时候不甚相同，ubuntu18的配�
   $ vim /usr/local/redis/etc/redis.conf #将daemonize no 改成daemonize yes
   ```
 
-* 开启redis
-
-  ```bash
-  $ /usr/local/redis/bin/redis-server /usr/local/redis/etc/redis.conf
-  ```
-
-* 常用命令
-
-  ```bash
-  redis-server /usr/local/redis/etc/redis.conf #启动redis
-  
-  pkill redis #停止redis
-  
-  卸载redis：
-  rm -rf /usr/local/redis #删除安装目录
-  rm -rf /usr/bin/redis-* #删除所有redis相关命令脚本
-  rm -rf /root/download/redis-4.0.8 #删除redis解压文件夹
-  ```
-
 * Reference: https://segmentfault.com/a/1190000017370688
 
 ## 3. Redis, Hbase & Mongodb比较
@@ -147,4 +128,28 @@ ubuntu18与之前的版本在配置网卡的时候不甚相同，ubuntu18的配�
 所以呢，不严谨地讲，Redis定位在"快"，HBase定位于"大",mongodb定位在"灵活"。
 NoSQL的优点正好就是SQL的软肋，而其弱点正好也就是SQL的杀手锏
 最大区别在于，在一般使用情况下，mongodb可以当作简单场景下的但是性能高数倍的MySQL, Redis基本只会用来做缓存，HBase用来做离线计算
+
+# 20190529
+
+## 1.Redis datatype
+
+Redis also supports several more complex data structures. The first one we'll look at is a list. A list is a series of ordered values. Some of the important commands for interacting with lists are RPUSH, LPUSH, LLEN, LRANGE, LPOP, and RPOP. You can immediately begin working with a key as a list, as long as it doesn't already exist as a different type.
+
+RPUSH puts the new value at the end of the list.
+```
+    RPUSH friends "Alice"
+    RPUSH friends "Bob"
+```    
+LPUSH puts the new value at the start of the list.
+
+```
+    LPUSH friends "Sam"
+```
+LRANGE gives a subset of the list. It takes the index of the first element you want to retrieve as its first parameter and the index of the last element you want to retrieve as its second parameter. A value of -1 for the second parameter means to retrieve elements until the end of the list.
+
+```
+    LRANGE friends 0 -1 => 1) "Sam", 2) "Alice", 3) "Bob"
+    LRANGE friends 0 1 => 1) "Sam", 2) "Alice"
+    LRANGE friends 1 2 => 1) "Alice", 2) "Bob" 
+```
 
