@@ -10,14 +10,17 @@ $ ./bin/zookeeper-server-start.sh config/zookeeper.properties
 $ ./bin/kafka-server-start.sh config/server.properties
 
 #创建topic
-$ bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test
+$ bin/kafka-topics.sh --create --zookeeper localhost:2182 --replication-factor 1 --partitions 1 --topic shoppinglogs
 
-$ bin/kafka-topics.sh --list --zookeeper localhost:2181
+$ bin/kafka-topics.sh --list --zookeeper localhost:2182
 
 #Send message
 $ bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test
 
 $ bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --from-beginning
+
+# delete topic
+$ bin/kafka-topics --delete --zookeeper 【zookeeper server:port】 --topic 【topic name】
 ```
 
 ## Flink 部署
@@ -29,7 +32,7 @@ $ cd /opt/flink-1.6.2
 $ bin/start-cluster.sh
 ```
 
-## redis
+## Redis
 
 ```bash
 # 启动redis
@@ -42,6 +45,8 @@ $ /usr/local/redis/bin/redis-server /usr/local/redis/etc/redis.conf
 redis-server /usr/local/redis/etc/redis.conf #启动redis
 
 pkill redis #停止redis
+
+kill -9 pid
 
 卸载redis：
 rm -rf /usr/local/redis #删除安装目录

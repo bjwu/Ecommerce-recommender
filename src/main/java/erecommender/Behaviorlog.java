@@ -85,10 +85,13 @@ public class Behaviorlog {
 
         try {
             mrate.userId = Integer.parseInt(tokens[0]);
-            mrate.timeStamp= Long.parseLong(tokens[1]);
-            mrate.btag = tokens[2];
-            mrate.cate = Integer.parseInt(tokens[3]);
-            mrate.itemId = Integer.parseInt(tokens[4]);
+            mrate.itemId = Integer.parseInt(tokens[1]);
+            mrate.cate = Integer.parseInt(tokens[2]);
+            mrate.btag = tokens[3];
+            mrate.timeStamp= Long.parseLong(tokens[4]);
+
+
+
 //
         } catch (NumberFormatException nfe) {
             throw new RuntimeException("Invalid record: " + line, nfe);

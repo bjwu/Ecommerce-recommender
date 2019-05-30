@@ -19,7 +19,7 @@ import java.util.zip.GZIPInputStream;
  */
 public class UserToKafka {
 
-    private static final String dataFilePath = "./data/behavior_log.csv.tar.gz";
+    private static final String dataFilePath = "./data/UserBehavior.csv.gz";
     private static transient BufferedReader reader;
     private static transient InputStream gzipStream;
 
@@ -47,9 +47,9 @@ public class UserToKafka {
                         continue;
                     }
                     // TODO: topic name should be changed
-                    producer.send(new ProducerRecord<String, String>("test", line));
+                    producer.send(new ProducerRecord<String, String>("shoppinglogs", line));
                     // TODO: can be set to random
-                    TimeUnit.SECONDS.sleep(5);
+                    TimeUnit.SECONDS.sleep(4);
                     cnt++;
                 }
             }

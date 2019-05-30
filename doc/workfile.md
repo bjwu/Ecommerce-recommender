@@ -129,37 +129,25 @@ ubuntu18与之前的版本在配置网卡的时候不甚相同，ubuntu18的配�
 NoSQL的优点正好就是SQL的软肋，而其弱点正好也就是SQL的杀手锏
 最大区别在于，在一般使用情况下，mongodb可以当作简单场景下的但是性能高数倍的MySQL, Redis基本只会用来做缓存，HBase用来做离线计算
 
-# 20190529
-
-## 1.Redis datatype
-
-Redis also supports several more complex data structures. The first one we'll look at is a list. A list is a series of ordered values. Some of the important commands for interacting with lists are RPUSH, LPUSH, LLEN, LRANGE, LPOP, and RPOP. You can immediately begin working with a key as a list, as long as it doesn't already exist as a different type.
-
-RPUSH puts the new value at the end of the list.
-```
-    RPUSH friends "Alice"
-    RPUSH friends "Bob"
-```    
-LPUSH puts the new value at the start of the list.
-
-```
-    LPUSH friends "Sam"
-```
-LRANGE gives a subset of the list. It takes the index of the first element you want to retrieve as its first parameter and the index of the last element you want to retrieve as its second parameter. A value of -1 for the second parameter means to retrieve elements until the end of the list.
-
-```
-    LRANGE friends 0 -1 => 1) "Sam", 2) "Alice", 3) "Bob"
-    LRANGE friends 0 1 => 1) "Sam", 2) "Alice"
-    LRANGE friends 1 2 => 1) "Alice", 2) "Bob" 
-```
 
 # 2019.5.29
 
 1. 杀不掉redis进程 
 
-不知道为什么我kill -9 命令无法杀掉 redis 进程 ，杀掉就自动重启 
+> 不知道为什么kill -9 命令无法杀掉 redis 进程 ，杀掉就自动重启 
 redis-cli shutdown 也不行 
 redis-cli -h 127.0.0.1 -p 6379 shutdown 都不行 
 最后这个命令能杀掉 
 /etc/init.d/redis-server stop
+
+2. Jedis 错误
+
+> MISCONF Redis is configured to save RDB snapshots, but is currently not able to persist on disk. Commands that may modify the data set are disabled. Please check Redis logs for details about the error
+
+将stop-writes-on-bgsave-error设置为no
+
+```bash
+127.0.0.1:6379> config set stop-writes-on-bgsave-error no
+```
+
 

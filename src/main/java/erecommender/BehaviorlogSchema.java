@@ -5,6 +5,10 @@ import org.apache.flink.api.common.serialization.SerializationSchema;
 import org.apache.flink.api.common.typeinfo.TypeInformation;
 import org.apache.flink.api.java.typeutils.TypeExtractor;
 
+/**
+* 解耦从kafka来的shoppinglog为behaviorlog对象
+*/
+
 public class BehaviorlogSchema implements DeserializationSchema<Behaviorlog>, SerializationSchema<Behaviorlog> {
 
     @Override

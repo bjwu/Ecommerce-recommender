@@ -7,7 +7,7 @@ import org.apache.flink.streaming.connectors.redis.common.mapper.RedisMapper;
 public class RedisMapperSink implements RedisMapper<Behaviorlog> {
     @Override
     public RedisCommandDescription getCommandDescription() {
-        return new RedisCommandDescription(RedisCommand.SET, "HASH_NAME");
+        return new RedisCommandDescription(RedisCommand.LPUSH, "HASH_NAME");
     }
 
     @Override
