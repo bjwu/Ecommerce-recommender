@@ -48,6 +48,9 @@ pkill redis #停止redis
 
 kill -9 pid
 
+启动client
+/usr/local/redis/bin/redis-cli
+
 卸载redis：
 rm -rf /usr/local/redis #删除安装目录
 rm -rf /usr/bin/redis-* #删除所有redis相关命令脚本

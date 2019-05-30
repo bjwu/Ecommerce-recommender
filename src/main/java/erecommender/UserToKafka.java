@@ -46,7 +46,6 @@ public class UserToKafka {
                         cnt++;
                         continue;
                     }
-                    // TODO: topic name should be changed
                     producer.send(new ProducerRecord<String, String>("shoppinglogs", line));
                     // TODO: can be set to random
                     TimeUnit.SECONDS.sleep(4);

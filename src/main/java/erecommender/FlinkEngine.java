@@ -17,16 +17,19 @@ import java.util.Properties;
 public class FlinkEngine {
     public static void main(String[] args) throws Exception {
 
+//        Scanner myObj = new Scanner(System.in);
+//        String host = myObj.nextLine();
+        String host = "192.168.128.111";
         // kafka配置
         final String KafkaTopic = "shoppinglogs";
         Properties properties = new Properties();
-        properties.setProperty("zookeeper.connect", "192.168.128.111:2182");
-        properties.setProperty("bootstrap.servers", "192.168.128.111:9092");
+        properties.setProperty("zookeeper.connect",  host + ":2182");
+        properties.setProperty("bootstrap.servers", host + ":9092");
         properties.setProperty("group.id", "shoppinglogs");
-        properties.setProperty("auto.offset.reset", "earliest");
+        properties.setProperty("auto.offset.reset", "latest");
 
         // Redis配置
-        final FlinkJedisPoolConfig Redisconf = new FlinkJedisPoolConfig.Builder().setHost("192.168.128.111").setPort(6379).build();
+        final FlinkJedisPoolConfig Redisconf = new FlinkJedisPoolConfig.Builder().setHost(host).setPort(6379).build();
 
 
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
@@ -35,6 +38,7 @@ public class FlinkEngine {
                 KafkaTopic,
                 new BehaviorlogSchema(),
                 properties);
+        System.out.print("Consuming data...");
 
         DataStream<Behaviorlog> Newlog = env
                 .addSource(myConsumer);
@@ -50,7 +54,8 @@ public class FlinkEngine {
                     @Override
                     public void open(Configuration parameters) throws Exception {
                         super.open(parameters);
-                        this.jedis = new Jedis("192.168.128.111");
+                        this.jedis = new Jedis(host);
+                        System.out.print("open jedis success");
                     }
 
                     @Override

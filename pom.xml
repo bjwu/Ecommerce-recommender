@@ -15,7 +15,6 @@
         <scala.binary.version>2.11</scala.binary.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <hbase.version>1.3.1</hbase.version>
     </properties>
 
     <repositories>
@@ -97,27 +96,6 @@
             <artifactId>jedis</artifactId>
             <version>2.10.0</version>
         </dependency>
-        <dependency>
-            <groupId>org.apache.hbase</groupId>
-            <artifactId>hbase-client</artifactId>
-            <version>${hbase.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.hbase</groupId>
-            <artifactId>hbase-server</artifactId>
-            <version>${hbase.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.hbase</groupId>
-            <artifactId>hbase</artifactId>
-            <version>${hbase.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.yammer.metrics</groupId>
-            <artifactId>metrics-core</artifactId>
-            <version>2.2.0</version>
-        </dependency>
-
 
 
         <!-- Add connector dependencies here. They must be in the default scope (compile). -->
@@ -195,7 +173,7 @@
                             </filters>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>wikiedits.StreamingJob</mainClass>
+                                    <mainClass>erecommender.FlinkEngine</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
