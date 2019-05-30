@@ -151,3 +151,86 @@ redis-cli -h 127.0.0.1 -p 6379 shutdown 都不行
 ```
 
 
+# 2019.5.30
+
+## 1. Samba
+
+- Samba 是一个基于 GPL协议 的自由软件，可以实现各个平台(mac，linux，windows）共享文件。
+
+## 1.1. mac和linux服务器共享文件
+
+- 在linux服务器上设置一个共享文件夹，mac可以直接上传或下载文件。
+
+## 1.2. linux部署
+
+- 安装 samba
+
+  我的linux服务器是ubuntu，包管理器是 apt-get
+
+  ```python
+  $ sudo apt-get samba
+  ```
+
+- 设置共享文件夹
+
+  创建一个文件夹 shared_directory 作为共享文件夹（也可以选择已有的，无需创建），并设置该文件夹权限为所有用户可读写
+
+  ```python
+  $ mkdir /home/USER_NAME/shared_directory
+  $ sudo chmod 777 /home/USERNAME/shared_directory
+  ```
+
+  这里的USERNAME是你的linux服务器名
+
+- 配置 samba.conf
+
+  直接修改 `/etc/samba/smb.conf` 文件，在文件末尾添加：
+
+  ```python
+  [share]
+        path = /home/USERNAME/shared_directory
+        available = yes
+        browseable = yes
+        public = yes
+        writable = yes
+  ```
+
+- 添加 samba 账户（即允许访问该共享文件夹的用户）
+
+  ```python
+  $ sudo touch /etc/samba/smbpasswd
+  $ sudo smbpasswd -a CLIENTNAME
+  ```
+
+  这里的CLIENTNAME就是可访问的用户。这里会要求输入密码，记住对象的用户名和密码，之后需要远程登录。
+  这里需要注意，有可能会报错：*Failed to add entry for user* 。很有可能是用户名不合法或者已经有该用户等错误信息，只要尝试改几次用户名就可以了。
+
+## 1.3. mac连接
+
+- 打开finder或者桌面，快捷键 `command + k `，得到以下界面：
+
+  ![](https://raw.githubusercontent.com/zifehng/MarkDownPhotos/VirtualBox/samba1.png)
+
+  
+
+  在 `smb://` 后面输入你想要连接的服务器地址。我这里是局域网内的，你也可以是任意可以ping通的服务器地址
+
+  选择 **注册用户** 并输入前面的CLIENTNAME和密码，完成登录。可以看到该共享文件了。 
+
+  
+## 2. linux下运行jar
+- 在Linux系统下直接执行java -jar XXX.jar， 往往会提示：No main manifest attribute, in XXX.jar 错误
+- 正常情况下，java打包成jar包需要在MANIFEST.MF中指定MainClass项以便运行java -jar XXX.jar时找到对应的主类。虽然我们在IntelliJ打包的时候选择了主类，但似乎linux系统并不买账
+- 利用 `java -cp XXX.jar MAINCLASSNAME` 指定主类名就可以正常
+  
+
+
+
+
+
+
+
+
+
+
+
