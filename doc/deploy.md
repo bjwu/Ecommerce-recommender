@@ -115,7 +115,7 @@ $ /usr/local/redis/bin/redis-server /usr/local/redis/etc/redis.conf
      $ scp -r /home/USERNAME/FILTTOSEND  hduser@10.10.10.2:/usr/local/hbase
      ```
 
-     后面也可以指定端口 -p 。
+     后面也可以指定端口 -p 。[具体参考](https://linuxtools-rst.readthedocs.io/zh_CN/latest/tool/scp.html)。
 
   2. samba
 
