@@ -218,6 +218,11 @@ redis-cli -h 127.0.0.1 -p 6379 shutdown 都不行
   选择 **注册用户** 并输入前面的CLIENTNAME和密码，完成登录。可以看到该共享文件了。 
 
   
+## 2. linux下运行jar
+- 在Linux系统下直接执行java -jar XXX.jar， 往往会提示：No main manifest attribute, in XXX.jar 错误
+- 正常情况下，java打包成jar包需要在MANIFEST.MF中指定MainClass项以便运行java -jar XXX.jar时找到对应的主类。虽然我们在IntelliJ打包的时候选择了主类，但似乎linux系统并不买账
+- 利用 `java -cp XXX.jar MAINCLASSNAME` 指定主类名就可以正常
+  
 
 
 
