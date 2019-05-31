@@ -15,11 +15,14 @@ import java.util.List;
 import java.util.Properties;
 
 public class FlinkEngine {
+    private static String HBaseTableName = "test1";
+    private static String host = "192.168.128.111";
+    private static String Flink2HBasePort = "2181";
     public static void main(String[] args) throws Exception {
 
 //        Scanner myObj = new Scanner(System.in);
 //        String host = myObj.nextLine();
-        String host = "192.168.128.111";
+//        host = "192.168.128.111";
         // kafka配置
         final String KafkaTopic = "shoppinglogs";
         Properties properties = new Properties();
@@ -72,6 +75,10 @@ public class FlinkEngine {
                 });
 
         Newlog.addSink(new RedisSink<Behaviorlog>(Redisconf, new RedisMapperSink()));
+
+//        Newlog.addSink(new HBaseSink<Behaviorlog>(host,Flink2HBasePort,HBaseTableName);
+
+
         Increlog.print();
 
         env.execute();
