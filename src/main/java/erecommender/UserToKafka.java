@@ -48,7 +48,7 @@ public class UserToKafka {
                     }
                     producer.send(new ProducerRecord<String, String>("shoppinglogs", line));
                     // TODO: can be set to random
-                    TimeUnit.SECONDS.sleep(4);
+                    TimeUnit.SECONDS.sleep(1);
                     cnt++;
                 }
             }

@@ -12,7 +12,7 @@
 
 服务器默认在us，为了更快，选择新加坡节点“ap”
 
-![这里有图片](../images/%20ngrox_tcp.png)
+![这里有图片](../images/ngrox_tcp.png)
 
 
 forwarding中，`12569`为给予的端口号，得保持该process一直运行，不然下一次端口号就会变，这就是开源的代价吧。
@@ -224,6 +224,20 @@ redis-cli -h 127.0.0.1 -p 6379 shutdown 都不行
 - 利用 `java -cp XXX.jar MAINCLASSNAME` 指定主类名就可以正常
   
 
+
+#2019.6.1
+
+1. 解决zookeeper可以运行但是在jps里没有HQuorumPeer的问题
+
+这多数是非正常关机引起的。
+
+解决方案是：
+
+删除zoo.cfg配置中dataDir目录下的东西
+
+我们的目录是 /tmp/zookeeper
+
+删除掉version-2里面的log就可以了。
 
 
 
