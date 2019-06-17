@@ -55,7 +55,6 @@ public class FlinkEngine {
                     public void open(Configuration parameters) throws Exception {
                         super.open(parameters);
                         this.jedis = new Jedis(host);
-                        System.out.print("open jedis success");
                     }
 
                     @Override
@@ -70,6 +69,7 @@ public class FlinkEngine {
                         }
                     }
                 });
+
 
         Newlog.addSink(new RedisSink<Behaviorlog>(Redisconf, new RedisMapperSink()));
         Increlog.print();
