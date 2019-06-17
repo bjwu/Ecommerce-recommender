@@ -30,6 +30,9 @@ $ cd /opt/flink-1.6.2
 
 # starts a JobManager on the local node and connects to all worker nodes listed in the slaves file to start the TaskManager on each node
 $ bin/start-cluster.sh
+
+# run flink.jar
+./flink run -c erecommender.FlinkEngine ~/wubijia/Ecommerce-recommender.jar 
 ```
 
 ## Redis
