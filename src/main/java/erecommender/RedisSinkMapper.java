@@ -1,10 +1,11 @@
 package erecommender;
 
+import erecommender.Behavior.Behaviorlog;
 import org.apache.flink.streaming.connectors.redis.common.mapper.RedisCommand;
 import org.apache.flink.streaming.connectors.redis.common.mapper.RedisCommandDescription;
 import org.apache.flink.streaming.connectors.redis.common.mapper.RedisMapper;
 
-public class RedisMapperSink implements RedisMapper<Behaviorlog> {
+public class RedisSinkMapper implements RedisMapper<Behaviorlog> {
     @Override
     public RedisCommandDescription getCommandDescription() {
         return new RedisCommandDescription(RedisCommand.LPUSH, "HASH_NAME");

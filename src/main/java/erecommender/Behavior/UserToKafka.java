@@ -1,4 +1,4 @@
-package erecommender;
+package erecommender.Behavior;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
@@ -19,9 +19,11 @@ import java.util.zip.GZIPInputStream;
  */
 public class UserToKafka {
 
-    private static final String dataFilePath = "./data/UserBehavior.csv.gz";
+    private static final String dataFilePath = "./datasets/UserBehavior.csv.gz";
     private static transient BufferedReader reader;
     private static transient InputStream gzipStream;
+    private static final String LocalHost = "192.168.128.111";
+    private static final String RemoteHost = "10.64.193.88";
 
     public static void main(String[] args) throws Exception {
 
@@ -29,7 +31,7 @@ public class UserToKafka {
         int cnt = 0;
 
         Properties properties = new Properties();
-        properties.put("bootstrap.servers", "192.168.128.111:9092");
+        properties.put("bootstrap.servers", RemoteHost + ":9092"); //10.64.194.162  192.168.128.111
         properties.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         properties.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         Producer<String, String> producer = null;
@@ -46,11 +48,12 @@ public class UserToKafka {
                         cnt++;
                         continue;
                     }
-                    producer.send(new ProducerRecord<String, String>("shoppinglogs", line));
+                    producer.send(new ProducerRecord<String, String>("testlogs", line));
                     // TODO: can be set to random
                     TimeUnit.SECONDS.sleep(1);
                     cnt++;
                 }
+//                break;
             }
         } catch (Exception e) {
             e.printStackTrace();

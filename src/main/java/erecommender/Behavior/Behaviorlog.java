@@ -1,4 +1,4 @@
-package erecommender;
+package erecommender.Behavior;
 
 public class Behaviorlog {
     private int userId;

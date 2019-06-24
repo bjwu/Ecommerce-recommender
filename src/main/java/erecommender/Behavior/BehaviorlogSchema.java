@@ -1,4 +1,4 @@
-package erecommender;
+package erecommender.Behavior;
 
 import org.apache.flink.api.common.serialization.DeserializationSchema;
 import org.apache.flink.api.common.serialization.SerializationSchema;
