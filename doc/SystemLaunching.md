@@ -81,6 +81,11 @@ $ /usr/local/redis/bin/redis-cli shutdown
 
 # 4. Kafka
 
+## 4.0. Start Zookeeper
+```shell
+$ /usr/local/kafka/bin/zookeeper-server-start.sh /usr/local/kafka/config/zookeeper.properties
+```
+
 ## 4.1. Start Server
 
 ```shell
