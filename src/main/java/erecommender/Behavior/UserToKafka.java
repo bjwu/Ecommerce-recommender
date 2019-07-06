@@ -19,11 +19,11 @@ import java.util.zip.GZIPInputStream;
  */
 public class UserToKafka {
 
-    private static final String dataFilePath = "./datasets/UserBehavior.csv.gz";
+    private static final String dataFilePath = "/usr/local/data/jdata_action_sorted.csv.gz";
     private static transient BufferedReader reader;
     private static transient InputStream gzipStream;
     private static final String LocalHost = "192.168.128.111";
-    private static final String RemoteHost = "10.64.193.88";
+    private static final String RemoteHost = "localhost";
 
     public static void main(String[] args) throws Exception {
 
@@ -48,7 +48,7 @@ public class UserToKafka {
                         cnt++;
                         continue;
                     }
-                    producer.send(new ProducerRecord<String, String>("testlogs", line));
+                    producer.send(new ProducerRecord<String, String>("test", line));
                     // TODO: can be set to random
                     TimeUnit.SECONDS.sleep(1);
                     cnt++;

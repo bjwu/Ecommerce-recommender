@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Properties;
 
 public class FlinkEngine {
-    private static String host = "10.64.193.88"; //10.64.194.162  192.168.128.111
+    private static String host = "10.64.198.126"; //10.64.194.162  192.168.128.111
     public static void main(String[] args) throws Exception {
 
         // kafka配置
@@ -30,7 +30,7 @@ public class FlinkEngine {
         Properties properties = new Properties();
         properties.setProperty("zookeeper.connect",  host + ":2182");
         properties.setProperty("bootstrap.servers", host + ":9092"); //broker address
-        properties.setProperty("group.id", "shoppinglogs");
+        properties.setProperty("group.id", KafkaTopic);
         properties.setProperty("auto.offset.reset", "latest");
 
         // Redis配置

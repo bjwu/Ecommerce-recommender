@@ -9,7 +9,7 @@ public class RecommentdationMapper implements MapFunction<Tuple2<String, List<St
 
     @Override
     public RecommendationLog map(Tuple2<String, List<String>> s) {
-        RecommendationLog rlog = new RecommendationLog(Integer.parseInt(s.f0),Integer.parseInt(s.f1.get(0)));
+        RecommendationLog rlog = new RecommendationLog(Integer.parseInt(s.f0),Integer.parseInt(s.f1.get(2)));
 
         return rlog;
     }

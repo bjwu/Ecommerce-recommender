@@ -9,6 +9,10 @@
 - Redis: 	
     - version = 4.0.14	
     - REDIS_HOME = /usr/local/redis
+    
+- HBase:
+    - version = 
+    - HBase_HOME = 
 - Kafka: 	
     - verision = 0.11.0.3	
     - KAFKA_HOME  = /usr/local/kafka
@@ -96,21 +100,21 @@ $ /usr/local/kafka/bin/kafka-server-start.sh   /usr/local/kafka/config/server.pr
 ## 4.2. Create Topic
 
 ```shell
-$ /usr/local/kafka/bin/kafka-topics.sh --zookeeper localhost:2182 --create --topic TOPICNAME --partitions 10  --replication-factor 1
+$ /usr/local/kafka/bin/kafka-topics.sh --zookeeper localhost:2181 --create --topic shoppinglogs --partitions 10  --replication-factor 1
 
 ```
 
 ## 4.3. List Topics
 
 ```shell
-$ /usr/local/kafka/bin/kafka-topics.sh --list --zookeeper localhost:2182
+$ /usr/local/kafka/bin/kafka-topics.sh --list --zookeeper localhost:2181
 
 ```
 
 ## 4.4. kafka-console-consumer
 
 ```shell
-$ /usr/local/kafka/bin/kafka-console-consumer.sh --zookeeper localhost:2182 --topic testlogs --from-beginning
+$ /usr/local/kafka/bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic shoppinglogs --from-beginning
 
 ```
 
