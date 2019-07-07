@@ -5,11 +5,15 @@ import erecommender.Behavior.BehaviorlogSchema;
 import erecommender.Recommendation.RecommendationLog;
 import erecommender.Recommendation.RecommendationlogSchema;
 import erecommender.Recommendation.RecommentdationMapper;
+import erecommender.pool.HBase.HBaseLogSinkMapper;
+import org.apache.flink.api.common.serialization.SimpleStringSchema;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.configuration.Configuration;
+import org.apache.flink.streaming.api.TimeCharacteristic;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.functions.KeyedProcessFunction;
+import org.apache.flink.streaming.connectors.cassandra.CassandraSink;
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer011;
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaProducer011;
 import org.apache.flink.streaming.connectors.redis.RedisSink;
@@ -21,16 +25,17 @@ import java.util.List;
 import java.util.Properties;
 
 public class FlinkEngine {
-    private static String host = "10.64.198.126"; //10.64.194.162  192.168.128.111
+    private static String host = "10.21.4.133"; //10.64.194.162  192.168.128.111
+    private static String kafkaTopic = "test";
     public static void main(String[] args) throws Exception {
 
         // kafka配置
-        final String KafkaTopic = "testlogs";
+//        final String KafkaTopic = "test";
         final String RecommendationTopic = "recommendationlogs";
         Properties properties = new Properties();
         properties.setProperty("zookeeper.connect",  host + ":2182");
         properties.setProperty("bootstrap.servers", host + ":9092"); //broker address
-        properties.setProperty("group.id", KafkaTopic);
+        properties.setProperty("group.id", kafkaTopic);
         properties.setProperty("auto.offset.reset", "latest");
 
         // Redis配置
@@ -38,18 +43,16 @@ public class FlinkEngine {
 
 
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-
-        FlinkKafkaConsumer011<Behaviorlog> myConsumer = new FlinkKafkaConsumer011<Behaviorlog>(
-                KafkaTopic,
-                new BehaviorlogSchema(),
-                properties);
-        System.out.print("Consuming data...");
-
-
-
+        env.enableCheckpointing(1000); // 非常关键，一定要设置启动检查点！！
+        env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
 
 
         //读取kafka消息
+        FlinkKafkaConsumer011<Behaviorlog> myConsumer = new FlinkKafkaConsumer011<Behaviorlog>(
+                kafkaTopic,
+                new BehaviorlogSchema(),
+                properties);
+//        System.out.print("Consuming data...");
         DataStream<Behaviorlog> Newlog = env
                 .addSource(myConsumer);
 
@@ -80,30 +83,52 @@ public class FlinkEngine {
                     }
                 });
 
-
+        //flink 写到 redis
         Newlog.addSink(new RedisSink<Behaviorlog>(Redisconf, new RedisSinkMapper()));
 
 
-        FlinkKafkaProducer011<RecommendationLog> flinkKafkaProducer = new FlinkKafkaProducer011<RecommendationLog> (
-                RecommendationTopic,
-                new RecommendationlogSchema(),
-                properties);
-
-        Increlog
-                .map(new RecommentdationMapper())
-                .addSink(flinkKafkaProducer);
 
 
-        //        CassandraSink.addSink(result)
-        //        .setQuery("INSERT INTO " + WordCount.CQL_KEYSPACE_NAME + "." + WordCount.CQL_TABLE_NAME + ...
+        //flink 写到 HBase
+
+        DataStream<String> transction = env.addSource(new FlinkKafkaConsumer011<String>(kafkaTopic, new SimpleStringSchema(), properties));
+        transction.rebalance().map(new HBaseLogSinkMapper());
+
+
+
+
+
+
+
+
+
+
+        //flink 写到 kafka
+//        FlinkKafkaProducer011<RecommendationLog> flinkKafkaProducer = new FlinkKafkaProducer011<RecommendationLog> (
+//                RecommendationTopic,
+//                new RecommendationlogSchema(),
+//                properties);
+//
+//        Increlog
+//                .map(new RecommentdationMapper())
+//                .addSink(flinkKafkaProducer);
+
+
+        env.execute();
+
+
+
+
+        //flink 写到 cassandra
+//        CassandraSink.addSink(result)
+//        .setQuery("INSERT INTO " + WordCount.CQL_KEYSPACE_NAME + "." + WordCount.CQL_TABLE_NAME + ...
+
 //        CassandraSink.addSink(Newlog.map(new CassandraSinkMapper()))
 //                .setQuery("INSERT INTO logs.userlogs(userId, itemid,cate,timestamp,btag) values (?, ?,?,?,?);")
 //                .setHost("10.64.194.162") //10.64.194.162   192.168.128.111
 //                .build();
 
-//        Increlog.print();
 
-        env.execute();
 
     }
 
