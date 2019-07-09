@@ -1,8 +1,7 @@
-package erecommender;
+package erecommender.Cassandra;
 
 import erecommender.DataModels.JDBehaviorlog;
 import erecommender.DataModels.JDBehaviorlogSchema;
-import erecommender.HBase.HBaseOutputFormatPython;
 import erecommender.Redis.JDRedisSinkMapper;
 import org.apache.flink.api.common.functions.RichMapFunction;
 import org.apache.flink.configuration.Configuration;
@@ -17,7 +16,7 @@ import redis.clients.jedis.Jedis;
 import java.util.Properties;
 import java.util.Random;
 
-public class FlinkEngine {
+public class Flink2Cassandra {
     private static String host = "10.21.4.133"; //10.64.194.162  192.168.128.111
     private static String kafkaTopic = "action_train";
     private static Random random = new Random(20);
@@ -83,25 +82,17 @@ public class FlinkEngine {
         }).addSink(new RedisSink<JDBehaviorlog>(Redisconf, new JDRedisSinkMapper()));
 
 
-//        flink 写到 HBase
-//        newlog.rebalance().map(new HBaseLogSinkMapper());
+        //        flink 写到 cassandra
+//        CassandraSink.addSink(result)
+//        .setQuery("INSERT INTO " + WordCount.CQL_KEYSPACE_NAME + "." + WordCount.CQL_TABLE_NAME + ...
 
-//        newlog.writeUsingOutputFormat(new HBaseOutputFormat());
-
-        newlog.writeUsingOutputFormat(new HBaseOutputFormatPython());
-
-
-
-
-//        flink 写到 kafka
-//        FlinkKafkaProducer011<RecommendationLog> flinkKafkaProducer = new FlinkKafkaProducer011<RecommendationLog> (
-//                RecommendationTopic,
-//                new RecommendationlogSchema(),
-//                properties);
+//        CassandraSink.addSink(newlog.map(new CassandraSinkMapper()))
+//                .setQuery("INSERT INTO logs.userlogs(userId, itemid,cate,timestamp,btag) values (?, ?,?,?,?);")
+//                .setHost("10.64.194.162") //10.64.194.162   192.168.128.111
+//                .build();
 //
-//        Increlog
-//                .map(new RecommentdationMapper())
-//                .addSink(flinkKafkaProducer);
+//
+//
 
 
         env.execute();
@@ -109,14 +100,6 @@ public class FlinkEngine {
 
 
 
-//        flink 写到 cassandra
-//        CassandraSink.addSink(result)
-//        .setQuery("INSERT INTO " + WordCount.CQL_KEYSPACE_NAME + "." + WordCount.CQL_TABLE_NAME + ...
-
-//        CassandraSink.addSink(Newlog.map(new CassandraSinkMapper()))
-//                .setQuery("INSERT INTO logs.userlogs(userId, itemid,cate,timestamp,btag) values (?, ?,?,?,?);")
-//                .setHost("10.64.194.162") //10.64.194.162   192.168.128.111
-//                .build();
 
 
 

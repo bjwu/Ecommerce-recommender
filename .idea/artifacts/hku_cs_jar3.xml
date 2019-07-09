@@ -200,6 +200,7 @@
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/sun/jersey/contribs/jersey-guice/1.9/jersey-guice-1.9.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/hadoop/hadoop-yarn-api/2.6.5/hadoop-yarn-api-2.6.5.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/hadoop/hadoop-annotations/2.6.5/hadoop-annotations-2.6.5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/flink/flink-connector-cassandra_2.12/1.7.2/flink-connector-cassandra_2.12-1.7.2.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/it/unimi/dsi/fastutil/6.5.7/fastutil-6.5.7.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/jboss/logging/jboss-logging/3.1.0.CR2/jboss-logging-3.1.0.CR2.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/tomcat/jasper-runtime/5.5.23/jasper-runtime-5.5.23.jar" path-in-jar="/" />

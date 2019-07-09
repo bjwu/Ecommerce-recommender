@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="hku.cs:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/hku_cs_jar</output-path>
+  <artifact type="jar" name="hku.cs:jar12">
+    <output-path>$PROJECT_DIR$/out/artifacts/hku_cs_jar12</output-path>
     <root id="archive" name="hku.cs.jar">
       <element id="module-output" name="hku.cs" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/flink/flink-hadoop-compatibility_2.11/1.9-SNAPSHOT/flink-hadoop-compatibility_2.11-1.9-20190706.035253-124.jar" path-in-jar="/" />
