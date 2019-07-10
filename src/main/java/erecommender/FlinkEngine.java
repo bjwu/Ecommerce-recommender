@@ -25,8 +25,6 @@ public class FlinkEngine {
     public static void main(String[] args) throws Exception {
 
         // kafka配置
-//        final String KafkaTopic = "test";
-//        final String RecommendationTopic = "recommendationlogs";
         Properties properties = new Properties();
         properties.setProperty("zookeeper.connect",  host + ":2182");
         properties.setProperty("bootstrap.servers", host + ":9092"); //broker address
